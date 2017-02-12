@@ -11,15 +11,15 @@
 
 #include "IFEheader.h"
 
-namespace node {
-
-  using namespace v8;
+using namespace v8;
+using namespace nan;
+using namespace node;
 
   static Persistent<String> emit_symbol;
 
   IFE::IFE() : ObjectWrap() {
   }
-  
+
   IFE::~IFE() {
   }
 
@@ -35,7 +35,7 @@ namespace node {
       }
   }
   Persistent<FunctionTemplate> IFE::constructor_template;
-  
+
   void IFE::Initialize(Handle<Object> target) {
     HandleScope scope;
 
@@ -95,7 +95,7 @@ namespace node {
     int cnt, i;
     struct interface *ifs;
     HandleScope scope;
-    
+
     ifs = (struct interface *)malloc(sizeof(*ifs) * 1024);
     cnt = if_list_ips(ifs, 1024);
     Handle<Array> obj = Array::New(cnt);
@@ -222,12 +222,12 @@ namespace node {
     }
     if(args.Length() == 2) {
       v8::String::AsciiValue val(args[1]);
-      if(*val && strlen(*val) > 0 
+      if(*val && strlen(*val) > 0
         && strcmp(*val, "preplumbed")==0 ) {
           iface.state = ETH_DOWN_STATE;
       }
     }
-    
+
     if(if_down(&iface)) {
       Local<Value> vChr[2];
       vChr[0] = String::New("error");
@@ -333,4 +333,3 @@ namespace node {
   }
 
   NODE_MODULE(IFEBinding, init)
-} // namespace node
