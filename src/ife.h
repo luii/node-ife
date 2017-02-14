@@ -65,14 +65,14 @@ typedef struct _arp_entry {
   unsigned char mac[ETH_ALEN];
 } arp_entry;
 
-#define ipaddr _ipaddr._ip4addr
-#define ip6addr _ipaddr._ip6addr
-#define bcast _bcast._bcast4
-#define bcast6 _bcast._bcast6
-#define netmask _netmask._netmask4
-#define netmask6 _netmask._netmask6
-#define network _network._network4
-#define network6 _network._network6
+// #define ipaddr _ipaddr._ip4addr
+// #define ip6addr _ipaddr._ip6addr
+// #define bcast _bcast._bcast4
+// #define bcast6 _bcast._bcast6
+// #define netmask _netmask._netmask4
+// #define netmask6 _netmask._netmask6
+// #define network _network._network4
+// #define network6 _network._network6
 
 int if_initialize(void);
 void if_destroy(void);
