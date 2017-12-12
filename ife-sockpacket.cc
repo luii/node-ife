@@ -42,11 +42,12 @@ char *if_error() {
   return _if_error;
 }
 
-int
-if_send_spoof_request(const char *dev,
-		      unsigned int new_ip, unsigned int r_ip,
-                      const unsigned char *remote_mac,
-		      int count,int icmp) {
+int if_send_spoof_request(const char *dev,
+		                      unsigned int new_ip,
+                          unsigned int r_ip,
+                          const unsigned char *remote_mac,
+		                      int count,
+                          int icmp) {
   int i;
   struct ifreq ifr;
   struct sockaddr iface;
@@ -155,8 +156,7 @@ if_list_ips(struct interface *ifs,
   return count;
 }
 
-int
-if_down(struct interface *areq) {
+int if_down(struct interface *areq) {
   int ic, i, iname, hasip, inamlen;
   struct ifreq ifr;
   struct interface ifs[1024];
@@ -170,8 +170,8 @@ if_down(struct interface *areq) {
   for(i=0;i<1024;i++) {
     iname=hasip=0;
     if(!areq->ifname[0] ||
-	(!strncmp(areq->ifname, ifs[i].ifname, inamlen) &&
-	 (ifs[i].ifname[inamlen]==':' || ifs[i].ifname[inamlen]=='\0')))
+	     (!strncmp(areq->ifname, ifs[i].ifname, inamlen) &&
+	     (ifs[i].ifname[inamlen]==':' || ifs[i].ifname[inamlen]=='\0')))
       iname=1;
     if((areq->family == AF_INET &&
         (areq->ipaddr.s_addr==0 ||
@@ -222,8 +222,7 @@ if_down(struct interface *areq) {
   return -1;
 }
 
-int
-if_up(struct interface *areq) {
+int if_up(struct interface *areq) {
   int i, ic, ifnamsiz;
   int vin[1024];
   struct ifreq ifr, ifq;
@@ -236,6 +235,8 @@ if_up(struct interface *areq) {
   for(i=1;i<1024;i++) vin[i]=i;
   ic = if_list_ips(ifs, 1024);
   ifnamsiz = strlen(areq->ifname);
+
+  // check if the ip alias exists
   for(i=0; i<ic; i++) {
     if((areq->family == AF_INET &&
         !memcmp(&ifs[i].ipaddr, &(areq->ipaddr), sizeof(struct in_addr))) ||
@@ -244,15 +245,16 @@ if_up(struct interface *areq) {
       _if_error = _if_error_exists;
       return 1;
     }
+
     if(!strncmp(ifs[i].ifname, areq->ifname, ifnamsiz)) {
       if(ifs[i].ifname[ifnamsiz] == '\0') {
-	snprintf(realreq.ifname, IFNAMSIZ, "%s:%d", areq->ifname, 0);
+	      snprintf(realreq.ifname, IFNAMSIZ, "%s:%d", areq->ifname, 0);
       } else {
-	if(ifs[i].ifname[ifnamsiz] == ':') {
-	  int tvin;
-	  tvin = atoi(ifs[i].ifname + ifnamsiz + 1);
-	  vin[tvin]=-1;
-	}
+        if(ifs[i].ifname[ifnamsiz] == ':') {
+          int tvin;
+          tvin = atoi(ifs[i].ifname + ifnamsiz + 1);
+          vin[tvin]=-1;
+        }
       }
     }
   }
@@ -272,8 +274,7 @@ if_up(struct interface *areq) {
   }
   if(areq->family == AF_INET) {
     memcpy(ifr.ifr_name, realreq.ifname, IFNAMSIZ);
-    ((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr.s_addr =
-      areq->ipaddr.s_addr;
+    ((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr.s_addr = areq->ipaddr.s_addr;
     ((struct sockaddr_in *)&ifr.ifr_addr)->sin_family = AF_INET;
     ((struct sockaddr_in *)&ifr.ifr_addr)->sin_port = 0;
     
@@ -309,8 +310,7 @@ if_up(struct interface *areq) {
     } else {
       _if_error = _if_error_setip;
     }
-  }
-  else if(areq->family == AF_INET6) {
+  } else if(areq->family == AF_INET6) {
     struct ifreq ifr;
     struct in6_ifreq ifr6;
     memset(&ifr, 0, sizeof(ifr));

@@ -1,44 +1,44 @@
 /* Copyright (c) 2013, OmniTI Computer Consulting, Inc. All rights reserved. */
 
-#include <node.h>
-#include <node_object_wrap.h>
-#include <v8.h>
+#ifndef IFE_WRAPPER_H_
+#define IFE_WRAPPER_H_
+
+#define DECLARE_NAPI_METHOD(name, func) \
+  { name, 0, func, 0, 0, 0, napi_default, 0 }
+
+#include <node_api.h>
 
 #include <sys/types.h>
 #include <sys/mman.h>
+#include <arpa/inet.h>
 
 #include <errno.h>
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-#ifndef __APPLE__
+#include <assert.h>
 #include <stdlib.h>
-#include <malloc.h>
-#endif
 
-namespace node {
-
-  using namespace v8;
-
-  class IFE : ObjectWrap {
-
+class IFE {
   public:
-    static void Initialize(v8::Handle<v8::Object> target);
+    static napi_value init (napi_env env, napi_value exports);
+    static void       Destructor(napi_env, void *nativeObject, void *finalize_hint);
 
-    static v8::Handle<v8::Value> New(const v8::Arguments& args);
-    static v8::Handle<v8::Value> list(const v8::Arguments& args);
-    static v8::Handle<v8::Value> up(const v8::Arguments& args);
-    static v8::Handle<v8::Value> down(const v8::Arguments& args);
-    static v8::Handle<v8::Value> gratarp(const v8::Arguments& args);
-    static v8::Handle<v8::Value> arpcache(const v8::Arguments& args);
-
-    IFE();
-    ~IFE();
-    void emit(Local<Value> args[], int nargs);
   private:
-    static Persistent<FunctionTemplate> constructor_template;
-  };
+    explicit IFE();
+    ~IFE();
 
-  void InitIFE(v8::Handle<v8::Object> target);
-}
+    napi_env env_;
+    napi_ref wrapper_;
+
+    static napi_ref   constructor;
+
+    static napi_value New (napi_env env, napi_callback_info info);
+    static napi_value list (napi_env env, napi_callback_info info);
+    static napi_value up (napi_env env, napi_callback_info info);
+    static napi_value down (napi_env env, napi_callback_info info);
+    static napi_value gratarp (napi_env env, napi_callback_info info);
+    static napi_value arpcache (napi_env env, napi_callback_info info);
+};
+
+#endif // !IFE_WRAPPER_H_

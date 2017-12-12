@@ -11,15 +11,19 @@
 #ifndef ETH_ALEN
 #define ETH_ALEN 6
 #endif
+
 #ifndef ETH_HLEN
 #define ETH_HLEN 14
 #endif
+
 #ifndef ETH_P_ALL
 #define ETH_P_ALL 0x0003
 #endif
+
 #ifndef ETH_P_IP
 #define ETH_P_IP 0x0800
 #endif
+
 #ifndef ETH_P_ARP
 #define ETH_P_ARP 0x0806
 #endif
@@ -27,9 +31,12 @@
 #ifndef ETH_UP_STATE
 #define ETH_UP_STATE 1
 #endif
+
+
 #ifndef ETH_DOWN_STATE
 #define ETH_DOWN_STATE 2
 #endif
+
 #ifndef ETH_ANY_STATE
 #define ETH_ANY_STATE 3
 #endif
