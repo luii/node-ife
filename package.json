@@ -1,19 +1,26 @@
 {
-  "name": "ife",
-  "description": "Interface Management for Node.js",
+  "name": "@nodeos/node-ife",
+  "description": "Interface Management for Node.js/NodeOS",
   "keywords": [
     "ife",
     "ifconfig",
     "ipconfig"
   ],
   "scripts": {
-    "install": "prebuild-install -d || node-gyp rebuild"
+    "install": "prebuild-install || node-gyp rebuild"
   },
   "version": "0.0.12",
   "preferGlobal": true,
   "author": {
     "name": "Theo Schlossnagle"
   },
+  "contributors": [
+    {
+      "email": "philipp.czarnetzki@protonmail.ch",
+      "name": "Philipp Czarnetzki",
+      "url": "https://github.com/luii"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/luii/node-ife.git"
@@ -32,11 +39,11 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://github.com/postwait/node-ife/raw/master/LICENSE-MIT"
+      "url": "http://github.com/luii/node-ife/raw/master/LICENSE-MIT"
     },
     {
       "type": "CDDL",
-      "url": "http://github.com/postwait/node-ife/raw/master/LICENSE-CDDL"
+      "url": "http://github.com/luii/node-ife/raw/master/LICENSE-CDDL"
     }
   ]
 }
