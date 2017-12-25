@@ -390,52 +390,6 @@
     return nSuccess;
   }
 
-  // /**
-  //  * Disables the specified interface(s)
-  //  */
-  // Handle<Value> IFE::down(const Arguments &args) {
-  //   HandleScope scope;
-  //   struct interface iface;
-
-  //   memset((void *)&iface, 0, sizeof(iface));
-
-  //   if (args[0]->IsUndefined())
-  //   {
-  //     ThrowException(Exception::TypeError(String::New("argument undefined")));
-  //     return scope.Close(Undefined());
-  //   }
-  //   Local<String> ip = args[0]->ToString();
-  //   String::Utf8Value val(ip);
-  //   if (inet_pton(AF_INET, *(val), &iface.ipaddr) == 1)
-  //   {
-  //     iface.family = AF_INET;
-  //   }
-  //   else if (inet_pton(AF_INET6, *(val), &iface.ip6addr) == 1)
-  //   {
-  //     iface.family = AF_INET6;
-  //   }
-  //   else
-  //   {
-  //     ThrowException(Exception::TypeError(String::New(*val)));
-  //     return scope.Close(Undefined());
-  //   }
-  //   if (args.Length() == 2)
-  //   {
-  //     v8::String::AsciiValue val(args[1]);
-  //     if (*val && strlen(*val) > 0 && strcmp(*val, "preplumbed") == 0)
-  //     {
-  //       iface.state = ETH_DOWN_STATE;
-  //     }
-  //   }
-
-  //   if (if_down(&iface))
-  //   {
-  //     return v8::Boolean::New(false);
-  //   }
-  //   return v8::Boolean::New(true);
-  // }
-
-
   napi_value IFE::down(napi_env env, napi_callback_info info) {
     napi_status status;
     struct interface iface;
