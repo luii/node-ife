@@ -1,9 +1,20 @@
 # IFE #
 
-IFE is (network) interface management for Node.js.  It works on Linux, Illumos, FreeBSD, MacOS X.
+Network interface management for NodeOS.
+Adapted and newly wrapped with napi from [postwait/node-ife](https://github.com/postwait/node-ife)
 
-    var IFEdriver = require('ife'),
-        ife = new IFEdriver();
+***Notice:*** This module won't work with Node.js < 9.x.x due to the new NAPI Layer for native modules in Node.js
+
+```bash
+$ npm install @nodeos/node-ife
+```
+
+### Quickstart ###
+
+```js
+    let { ife }   = require('ife')
+    let interface = new ife()
+```
 
 ## API ##
 
@@ -11,7 +22,7 @@ IFE is (network) interface management for Node.js.  It works on Linux, Illumos, 
 
 #### .up(options) ####
 
-Brings up the specified address on the interface "eth0".
+Brings up the specified address on the interface.
 
 **For IPV4:**
 
